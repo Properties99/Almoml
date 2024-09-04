@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al Alamien in 2 Mins - العالمين فى دقيقتين</title>
+    <link rel="stylesheet" href="property-styles.css">
+    <style>
+        /* Default background settings */
+        body {
+            transition: background 0.3s ease;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const phaseSelect = document.getElementById('phase');
+            const detailsSelect = document.getElementById('details');
+            const detailsDiv = document.getElementById('detailsDiv');
+            const body = document.body; // Select the body element
+
+            // Map phases to background styles (update as needed)
+            const backgroundStyles = {
+                'Mazzarine-Town مزارين تاون': 'url("mazzarine-town.jpg") no-repeat center center fixed',
+                'Latin District-الحى الاتينى': 'lightblue',
+                'Downtown-داون تاون العالمين': 'lightpink',
+                'Mazzarine Chalets': 'lightgreen'
+            };
+
+            // Map phases to details options
+            const phaseDetails = {
+                'Mazzarine-Town مزارين تاون': ['1', '2', '3'],
+                'Latin District-الحى الاتينى': ['1', '2', '3'],
+                'Downtown-داون تاون العالمين': ['1', '2', '3'],
+                'Mazzarine Chalets': ['1', '2', '3']
+            };
+
+            phaseSelect.addEventListener('change', function() {
+                const selectedPhase = phaseSelect.value;
+                detailsSelect.innerHTML = '<option value="">--Choose phase details--</option>';
+
+                if (selectedPhase && phaseDetails[selectedPhase]) {
+                    phaseDetails[selectedPhase].forEach(detail => {
+                        const option = document.createElement('option');
+                        option.value = detail;
+                        option.textContent = detail;
+                        detailsSelect.appendChild(option);
+                    });
+                } else {
+                    for (let i = 0; i < detailsSelect.options.length; i++) {
+                        detailsSelect.options[i].style.display = '';
+                    }
+                }
+
+                if (selectedPhase) {
+                    body.style.background = backgroundStyles[selectedPhase];
+                    body.style.backgroundSize = selectedPhase === 'Mazzarine-Town مزارين تاون' ? 'cover' : '';
+                } else {
+                    body.style.background = ''; // Reset background if none selected
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Al Alamien in 2 Mins - العالمين فى دقيقتين</h1>
+        <form id="propertyForm">
+            <label for="phase">Choose a Phase / اختر المرحلة:</label>
+            <select id="phase" required>
+                <option value="">--Choose a phase--</option>
+                <option value="Mazzarine-Town مزارين تاون">Mazzarine-Town مزارين تاون</option>
+                <option value="Latin District-الحى الاتينى">Latin District-الحى الاتينى</option>
+                <option value="Downtown-داون تاون العالمين">Downtown-داون تاون العالمين</option>
+                <option value="Mazzarine Chalets">Mazzarine Chalets</option>
+            </select>
+
+            <label for="details">Phase Details / تفاصيل المرحلة:</label>
+            <select id="details" required>
+                <option value="">--Choose phase details--</option>
+                <!-- Options will be populated dynamically based on the phase selected -->
+            </select>
+
+            <div id="detailsDiv"></div>
+        </form>
+    </div>
+</body>
+</html>
